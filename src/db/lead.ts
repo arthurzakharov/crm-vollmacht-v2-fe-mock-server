@@ -3,7 +3,7 @@ import { AllowedPathType, LeadType } from "../types";
 
 const LeadSchema = new Schema({
   secret: { type: String, required: true },
-  firstViewUrl: {type: Schema.Types.Mixed, required: true },
+  firstViewUrl: {type: Schema.Types.Mixed, required: false },
   allowedPath: { type: String, required: true },
 });
 
