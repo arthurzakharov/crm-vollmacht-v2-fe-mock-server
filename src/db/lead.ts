@@ -6,9 +6,6 @@ const LeadSchema = new Schema({
   firstViewUrl: {
     type: String,
     required: false,
-    index: {
-      unique: true,
-    },
   },
   allowedPath: { type: String, required: true },
 });
