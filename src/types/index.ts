@@ -73,7 +73,7 @@ export type PoaDataType = {
 
 export type LeadType = {
   secret: string;
-  firstViewUrl: string | null;
+  firstViewUrl?: string | null;
   allowedPath: AllowedPathType;
 };
 

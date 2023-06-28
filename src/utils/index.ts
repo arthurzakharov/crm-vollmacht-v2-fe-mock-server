@@ -6,7 +6,7 @@ export const fakeDelay = async (time: number): Promise<void> =>
 
 export const startFakeSignAwait = (id: Types.ObjectId): void => {
   (async () => {
-    await fakeDelay(+process.env.SIGN_DELAY || 7500);
+    await fakeDelay(process.env.SIGN_DELAY ? +process.env.SIGN_DELAY : 7500);
     await updateLeadAllowedPath(id, "/attachment");
   })();
 };
