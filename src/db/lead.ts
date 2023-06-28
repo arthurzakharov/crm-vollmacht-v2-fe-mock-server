@@ -2,9 +2,9 @@ import { Schema, model, Types } from "mongoose";
 import { AllowedPathType, LeadType } from "../types";
 
 const LeadSchema = new Schema({
-  secret: { type: String, required: true },
-  firstViewUrl: {type: Schema.Types.Mixed, required: false },
-  allowedPath: { type: String, required: true },
+  secret: { type: String, required: true, unique: true },
+  firstViewUrl: {type: Schema.Types.Mixed, required: false, unique: false },
+  allowedPath: { type: String, required: true, unique: false },
 });
 
 export const LeadModel = model("Lead", LeadSchema);
