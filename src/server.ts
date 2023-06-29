@@ -10,7 +10,7 @@ import { delay } from "./middlewares";
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:5173']
+    origin: "*"
 }));
 app.use(json());
 app.use(morgan("tiny"));
