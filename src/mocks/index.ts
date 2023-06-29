@@ -4,7 +4,7 @@ const AUTHENTICATION_RESPONSE: GetAuthenticateResponse = {
   allowedPath: "/",
   attachmentSections: [
     {
-      completed: true,
+      completed: false,
       index: 1,
       name: "insurance",
     },
