@@ -15,20 +15,20 @@ const router = express.Router();
 
 router.get("/config.json", getConfigJson);
 
-router.get("/authenticate/:secret", getAuthenticate);
+router.get("/api/authenticate/:secret", getAuthenticate);
 
-router.post("/first-view", postFirstView);
+router.post("/api/first-view", postFirstView);
 
-router.get("/getsignature/*", getSignature);
+router.get("/api/getsignature/*", getSignature);
 
-router.post("/sign", postSign);
+router.post("/api/sign", postSign);
 
-router.post("/sign/remuneration", postSignRemuneration);
+router.post("/api/sign/remuneration", postSignRemuneration);
 
-router.post("/insurance-information", postInsuranceInformation);
+router.post("/api/insurance-information", postInsuranceInformation);
 
-router.post("/client-survey", postClientSurvey);
+router.post("/api/client-survey", postClientSurvey);
 
-router.post("/files", postFiles);
+router.post("/api/files", postFiles);
 
 export default router;
