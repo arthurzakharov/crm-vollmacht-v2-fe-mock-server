@@ -1,7 +1,7 @@
 import type { GetAuthenticateResponse, GetConfigJsonResponse, GetSignatureResponse } from "../types";
 
 export const getConfigJsonResponseMock = (protocol: string, url: string): GetConfigJsonResponse => ({
-  API_URL: `${protocol}://${url}`,
+  API_URL: `${protocol}://${url}/api`,
   NODE_ENV: "production",
 });
 
