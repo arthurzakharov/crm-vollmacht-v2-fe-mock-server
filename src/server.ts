@@ -9,9 +9,7 @@ import { delay } from "./middlewares";
 
 const app = express();
 
-app.use(cors({
-    origin: "*"
-}));
+app.use(cors());
 app.use(json());
 app.use(morgan("tiny"));
 app.use(delay);
