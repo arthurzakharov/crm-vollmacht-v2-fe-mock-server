@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import type { GetAuthenticateResponse, GetConfigJsonResponse } from "../types";
+import type {AllowedPathType, GetAuthenticateResponse, GetConfigJsonResponse} from "../types";
 import { createLead, getLeadBySecret, updateLeadFirstViewUrl } from "../db/lead";
 import { getAuthenticationHomeMock, getConfigJsonResponseMock, getSignatureResponseMock } from "../mocks";
 import { startFakeSignAwait } from "../utils";
@@ -18,10 +18,11 @@ export const getAuthenticate = async (req: Request, res: Response<GetAuthenticat
     const secret = req.params.secret;
     const existingUser = await getLeadBySecret(secret);
     if (existingUser) {
-      return res.status(200).json(getAuthenticationHomeMock(existingUser.firstViewUrl)).end();
+      const { firstViewUrl, allowedPath } = existingUser;
+      return res.status(200).json(getAuthenticationHomeMock(firstViewUrl, allowedPath as AllowedPathType)).end();
     } else {
       await createLead({ secret, firstViewUrl: null, allowedPath: "/" });
-      return res.status(200).json(getAuthenticationHomeMock(null)).end();
+      return res.status(200).json(getAuthenticationHomeMock(null, '/')).end();
     }
   } catch (error) {
     console.error("[getAuthenticate]", error);
