@@ -1,7 +1,13 @@
 import type { Request, Response } from "express";
-import type {AllowedPathType, GetAuthenticateResponse, GetConfigJsonResponse} from "../types";
+import type { AllowedPathType, GetAuthenticateResponse, GetConfigJsonResponse } from "../types";
 import { createLead, getLeadBySecret, updateLeadFirstViewUrl } from "../db/lead";
-import { getAuthenticationHomeMock, getConfigJsonResponseMock, getSignatureResponseMock } from "../mocks";
+import {
+  getAuthenticationAttachmentMock,
+  getAuthenticationHomeMock,
+  getAuthenticationRemunerationMock,
+  getConfigJsonResponseMock,
+  getSignatureResponseMock,
+} from "../mocks";
 import { startFakeSignAwait } from "../utils";
 
 export const getConfigJson = (req: Request, res: Response<GetConfigJsonResponse>) => {
@@ -18,11 +24,21 @@ export const getAuthenticate = async (req: Request, res: Response<GetAuthenticat
     const secret = req.params.secret;
     const existingUser = await getLeadBySecret(secret);
     if (existingUser) {
-      const { firstViewUrl, allowedPath } = existingUser;
-      return res.status(200).json(getAuthenticationHomeMock(firstViewUrl, allowedPath as AllowedPathType)).end();
+      const firstViewUrl = existingUser.firstViewUrl;
+      const allowedPath = existingUser.allowedPath as AllowedPathType;
+      switch (allowedPath) {
+        case "/":
+          return res.status(200).json(getAuthenticationHomeMock(firstViewUrl, allowedPath)).end();
+        case "/attachment":
+          return res.status(200).json(getAuthenticationAttachmentMock(firstViewUrl, allowedPath)).end();
+        case "/remuneration":
+          return res.status(200).json(getAuthenticationRemunerationMock(firstViewUrl, allowedPath)).end();
+        default:
+          return res.sendStatus(400);
+      }
     } else {
       await createLead({ secret, firstViewUrl: null, allowedPath: "/" });
-      return res.status(200).json(getAuthenticationHomeMock(null, '/')).end();
+      return res.status(200).json(getAuthenticationHomeMock(null, "/")).end();
     }
   } catch (error) {
     console.error("[getAuthenticate]", error);
