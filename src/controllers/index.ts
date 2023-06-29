@@ -18,10 +18,10 @@ export const getAuthenticate = async (req: Request, res: Response<GetAuthenticat
     const secret = req.params.secret;
     const existingUser = await getLeadBySecret(secret);
     if (existingUser) {
-      return res.status(200).json(getAuthenticationHomeMock).end();
+      return res.status(200).json(getAuthenticationHomeMock(existingUser.firstViewUrl)).end();
     } else {
       await createLead({ secret, firstViewUrl: null, allowedPath: "/" });
-      return res.status(200).json(getAuthenticationHomeMock).end();
+      return res.status(200).json(getAuthenticationHomeMock(null)).end();
     }
   } catch (error) {
     console.error("[getAuthenticate]", error);
