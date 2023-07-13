@@ -56,8 +56,8 @@ const AUTHENTICATION_RESPONSE: GetAuthenticateResponse = {
   uploadUuid: null,
 };
 
-export const getConfigJsonResponseMock = (url: string): GetConfigJsonResponse => ({
-  API_URL: `https://${url}/api`,
+export const getConfigJsonResponseMock = (protocol: string, url: string): GetConfigJsonResponse => ({
+  API_URL: `${protocol}//${url}/api`,
   NODE_ENV: "production",
 });
 

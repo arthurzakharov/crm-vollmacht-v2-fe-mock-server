@@ -12,7 +12,9 @@ import { startFakeSignAwait } from "../utils";
 
 export const getConfigJson = (req: Request, res: Response<GetConfigJsonResponse>) => {
   try {
-    res.json(getConfigJsonResponseMock(req.headers.host || ""));
+    const protocol = new URL(req.headers.origin || "").protocol;
+    const host = req.headers.host || "";
+    res.json(getConfigJsonResponseMock(protocol, host));
   } catch (error) {
     console.error("[getConfigJson]", error);
     return res.sendStatus(400);

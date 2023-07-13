@@ -15,9 +15,10 @@ app.use(morgan("tiny"));
 app.use(delay);
 app.use(routes);
 
-app.listen(process.env.PORT, () => console.log("SERVER is running on port:", process.env.PORT));
-
 mongoose
   .connect(process.env.MONGO_URL || "", { dbName: "mock" })
-  .then(() => console.log("CONNECTION TO DB IS INSTALLED"))
+  .then(() => {
+    console.log("CONNECTION TO DB IS INSTALLED");
+    app.listen(process.env.PORT, () => console.log("SERVER is running on port:", process.env.PORT));
+  })
   .catch((error) => console.log("CAN NOT CONNECT TO DATABASE", error));
